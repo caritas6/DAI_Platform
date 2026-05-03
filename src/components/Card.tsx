@@ -4,12 +4,14 @@ interface CardProps {
   children: ReactNode;
   style?: CSSProperties;
   className?: string;
+  onClick?: () => void;
 }
 
-export function Card({ children, style, className }: CardProps) {
+export function Card({ children, style, className, onClick }: CardProps) {
   return (
     <div
       className={className}
+      onClick={onClick}
       style={{
         background: 'var(--color-bg-primary)',
         border: '0.5px solid var(--color-border)',
