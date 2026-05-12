@@ -98,13 +98,6 @@ button{font-family:var(--sans);cursor:pointer}
 .btn-teal:hover{background:#085041}
 .btn-sm{padding:5px 12px;font-size:11px}
 .btn-xs{padding:3px 9px;font-size:10px;font-family:var(--mono)}
-.login-role-btn{width:100%;padding:14px 12px;border:1px solid var(--border2);border-radius:var(--r2);background:var(--surface);cursor:pointer;text-align:left;transition:all .18s;font-family:var(--sans);}
-.login-role-btn:hover{background:var(--bg2);transform:translateY(-1px);}
-@keyframes typing{0%,60%,100%{opacity:.25}30%{opacity:1}}
-.typing-dots span{display:inline-block;animation:typing 1.2s infinite;font-size:16px;margin-right:1px;}
-.typing-dots span:nth-child(2){animation-delay:.2s;}
-.typing-dots span:nth-child(3){animation-delay:.4s;}
-.voted-badge{display:none;font-family:var(--mono);font-size:9px;padding:2px 7px;border-radius:3px;background:var(--teal-l);color:var(--teal);margin-left:8px;}
 input[type=text],input[type=search],select,textarea{font-family:var(--sans);font-size:13px;padding:8px 12px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);color:var(--text);outline:none;transition:border-color .15s;}
 input:focus,select:focus{border-color:var(--purple-m)}
 select{cursor:pointer}
@@ -197,27 +190,6 @@ select{cursor:pointer}
 <body>
 <div id="app">
 
-
-<!-- ══ LOGIN SCREEN ══ -->
-<div class="screen active" id="s-login" style="position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:200;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:40px 40px;">
-  <div style="width:100%;max-width:420px;padding:0 20px">
-    <div style="text-align:center;margin-bottom:32px">
-      <div style="font-family:var(--mono);font-size:26px;font-weight:500;color:var(--purple);letter-spacing:.10em;margin-bottom:8px">G·A·I</div>
-      <div style="font-size:13px;color:var(--text2);margin-bottom:4px">KBU 디자인학과 산학 교육 플랫폼</div>
-      <div style="font-family:var(--mono);font-size:10px;color:var(--text4);letter-spacing:.06em">(재)경기도경제과학진흥원 · 디자인 재능나눔 사업</div>
-    </div>
-    <div style="background:var(--surface);border:1px solid var(--border2);border-radius:var(--r2);padding:28px 24px">
-      <div style="font-size:10px;font-family:var(--mono);color:var(--text4);letter-spacing:.10em;margin-bottom:14px">ROLE SELECT — 역할을 선택하세요</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
-        <button class="login-role-btn" onclick="loginAs('student')" style="border-left:3px solid var(--purple)"><span style="font-size:18px;display:block;margin-bottom:5px">🎓</span><span style="font-size:13px;font-weight:500;color:var(--text);display:block">학생</span><span style="font-size:10px;color:var(--text3)">프로젝트 · AI 협업</span></button>
-        <button class="login-role-btn" onclick="loginAs('professor')" style="border-left:3px solid var(--teal)"><span style="font-size:18px;display:block;margin-bottom:5px">👩‍🏫</span><span style="font-size:13px;font-weight:500;color:var(--text);display:block">교수 · 교육자</span><span style="font-size:10px;color:var(--text3)">커리큘럼 · 평가</span></button>
-        <button class="login-role-btn" onclick="loginAs('industry')" style="border-left:3px solid var(--coral)"><span style="font-size:18px;display:block;margin-bottom:5px">🏢</span><span style="font-size:13px;font-weight:500;color:var(--text);display:block">산업체 파트너</span><span style="font-size:10px;color:var(--text3)">멘토링 · 채용 연계</span></button>
-        <button class="login-role-btn" onclick="loginAs('researcher')" style="border-left:3px solid var(--pink)"><span style="font-size:18px;display:block;margin-bottom:5px">🔬</span><span style="font-size:13px;font-weight:500;color:var(--text);display:block">외부 연구자</span><span style="font-size:10px;color:var(--text3)">HCI/HCAI 연구</span></button>
-      </div>
-      <div style="text-align:center;font-size:10px;color:var(--text4);font-family:var(--mono)">Governance · AI Agent · Interaction</div>
-    </div>
-  </div>
-</div>
 <!-- ══ SIDEBAR ══ -->
 <nav id="sidebar">
   <div class="sb-logo">
@@ -226,52 +198,51 @@ select{cursor:pointer}
   </div>
 
   <div class="sb-section">메인</div>
-  <div class="nav-item active" data-target="dashboard" onclick="show('dashboard',this)">
+  <div class="nav-item active" onclick="show('dashboard',this)">
     <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>
     홈 대시보드
   </div>
-  <div class="nav-item" data-target="intro" onclick="show('intro',this)">
+  <div class="nav-item" onclick="show('intro',this)">
     <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M8 7v4M8 5.2v.5"/></svg>
     플랫폼 소개
   </div>
-  <div class="nav-item" data-target="project" onclick="show('project',this)">
+  <div class="nav-item" onclick="show('project',this)">
     <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4h12M2 8h8M2 12h5"/><circle cx="13" cy="11" r="2.5"/></svg>
     프로젝트 매칭
   </div>
 
   <div class="sb-section">학습</div>
-  <div class="nav-item" data-target="agent" onclick="show('agent',this)">
+  <div class="nav-item" onclick="show('agent',this)">
     <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M5.5 6.5C5.5 5 10.5 5 10.5 6.5S8 9 8 10"/><circle cx="8" cy="12.5" r=".6" fill="currentColor" stroke="none"/></svg>
     AI Agent
   </div>
 
   <div class="sb-section">커뮤니티</div>
-  <div class="nav-item" data-target="dao" onclick="show('dao',this)">
+  <div class="nav-item" onclick="show('dao',this)">
     <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="4" r="2"/><circle cx="3" cy="12" r="2"/><circle cx="13" cy="12" r="2"/><path d="M8 6v2.5M8 8.5l-3 2M8 8.5l3 2"/></svg>
     DAO 거버넌스
   </div>
-  <div class="nav-item" data-target="portfolio" onclick="show('portfolio',this)">
+  <div class="nav-item" onclick="show('portfolio',this)">
     <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="3.5" width="13" height="10" rx="1.5"/><path d="M5 3.5V2.5a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v1"/><path d="M4 8h8M4 11h5"/></svg>
     포트폴리오
   </div>
 
   <div class="role-tab-wrap">
     <div class="role-label">내 역할</div>
-    <button class="role-btn active" data-role="student" onclick="setRole('student',this)">🎓 학생</button>
-    <button class="role-btn" data-role="professor" onclick="setRole('professor',this)">👩‍🏫 교수 · 교육자</button>
-    <button class="role-btn" data-role="industry" onclick="setRole('industry',this)">🏢 산업체 파트너</button>
-    <button class="role-btn" data-role="researcher" onclick="setRole('researcher',this)">🔬 외부 연구자</button>
+    <button class="role-btn active" onclick="setRole('student',this)">🎓 학생</button>
+    <button class="role-btn" onclick="setRole('professor',this)">👩‍🏫 교수 · 교육자</button>
+    <button class="role-btn" onclick="setRole('industry',this)">🏢 산업체 파트너</button>
+    <button class="role-btn" onclick="setRole('researcher',this)">🔬 외부 연구자</button>
   </div>
 
   <div class="sb-bottom">
-    <div class="user-chip" style="margin-bottom:10px">
+    <div class="user-chip">
       <div class="avatar" id="sb-avatar">학생</div>
       <div>
         <div class="user-name" id="sb-name">게스트</div>
         <div class="user-role-text" id="sb-dept">KBU 디자인학과</div>
       </div>
     </div>
-    <button onclick="logout()" style="width:100%;font-size:10px;padding:6px;border:1px solid var(--border2);border-radius:var(--r);background:none;cursor:pointer;color:var(--text3);font-family:var(--mono);letter-spacing:.04em;transition:all .15s" onmouseover="this.style.background='var(--bg2)'" onmouseout="this.style.background='none'">로그아웃 / 역할 변경</button>
   </div>
 </nav>
 
@@ -293,7 +264,7 @@ select{cursor:pointer}
       <div class="research-kicker">경기도 디자인 재능나눔 사업 · (재)경기도경제과학진흥원 · KBU 디자인학과</div>
       <div class="research-text">
         <strong>G·A·I Platform</strong>은 <strong>Governance(DAO 기반 참여 거버넌스) · AI Agent(HCAI 학습 지원) · Interaction(산학 인터랙션)</strong>을 통합한
-        KBU 디자인학과 산학 교육 연구 플랫폼입니다. <span id="role-dash-msg" style="color:var(--purple);font-style:italic"></span> <strong>(재)경기도경제과학진흥원</strong> 지원 아래
+        KBU 디자인학과 산학 교육 연구 플랫폼입니다. <strong>(재)경기도경제과학진흥원</strong> 지원 아래
         ㈜제니스케어 · ㈜티지화이어 · ㈜에이라이프 · 상현내추럴 · 친정엄마 5개 기업과 학생이
         AI Agent와 협업하여 실제 디자인 프로젝트를 수행하고, DAO 거버넌스로 교육 정책에 직접 참여합니다.
       </div>
@@ -759,21 +730,21 @@ select{cursor:pointer}
     <div class="grid-13">
       <div class="fade-up d1">
         <div class="sec-title">Agent 유형</div>
-        <button class="agent-type-btn active" onclick="selectAgent(this,'리서치 Agent','논문·사례·이론 자료 수집 및 정리','research')">
+        <button class="agent-type-btn active" onclick="selectAgent(this,'리서치 Agent','논문·사례·이론 자료 수집 및 정리')">
           <div class="agent-icon" style="background:var(--purple-l)">🔍</div>
           <div><span class="agent-name">리서치 Agent</span><span class="agent-desc">논문 · 사례 · 이론 수집</span></div>
         </button>
-        <button class="agent-type-btn" onclick="selectAgent(this,'피드백 Agent','HCI 기반 결과물 분석 및 개선 제안','feedback')">
+        <button class="agent-type-btn" onclick="selectAgent(this,'피드백 Agent','HCI 기반 결과물 분석 및 개선 제안')">
           <div class="agent-icon" style="background:var(--teal-l)">💬</div>
           <div><span class="agent-name">피드백 Agent</span><span class="agent-desc">결과물 리뷰 · 개선 제안</span></div>
         </button>
-        <button class="agent-type-btn" onclick="selectAgent(this,'멘토링 Agent','프로젝트 단계별 프로세스 가이드','mentor')">
+        <button class="agent-type-btn" onclick="selectAgent(this,'멘토링 Agent','프로젝트 단계별 프로세스 가이드')">
           <div class="agent-icon" style="background:var(--amber-l)">🧭</div>
           <div><span class="agent-name">멘토링 Agent</span><span class="agent-desc">프로세스 · 방법론 가이드</span></div>
         </button>
         <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border)">
           <div class="sec-title">연결 프로젝트</div>
-          <select style="width:100%;margin-bottom:10px" onchange="setAgentProject(this)">
+          <select style="width:100%;margin-bottom:10px">
             <option>㈜제니스케어 — 헬스케어 UX/브랜딩</option>
             <option>㈜티지화이어 — 제품 비주얼 아이덴티티</option>
             <option>㈜에이라이프 — 라이프스타일 패키지</option>
@@ -836,7 +807,7 @@ select{cursor:pointer}
       <div class="insight-text"><strong>학생 · 교수 · 참여기업 멘토 · (재)경기도경제과학진흥원</strong>이 함께 참여하는 교육 거버넌스 실험. 기여도 기반 가중 투표로 사업 운영 방침과 평가 기준을 함께 결정합니다.</div>
     </div>
     <div class="metric-grid fade-up d2">
-      <div class="metric-card"><div class="metric-label">내 기여 점수</div><div class="metric-value" id="dao-score-val">248</div><div class="metric-sub">프로젝트 +180 · 투표 +68</div></div>
+      <div class="metric-card"><div class="metric-label">내 기여 점수</div><div class="metric-value">248</div><div class="metric-sub">프로젝트 +180 · 투표 +68</div></div>
       <div class="metric-card"><div class="metric-label">투표 참여율</div><div class="metric-value">92%</div><div class="metric-sub">플랫폼 평균 74%</div></div>
       <div class="metric-card"><div class="metric-label">보유 뱃지</div><div class="metric-value">7</div><div class="metric-sub">이번 학기 +2개</div></div>
       <div class="metric-card"><div class="metric-label">거버넌스 등급</div><div class="metric-value" style="font-size:20px">Silver</div><div class="metric-sub">Gold까지 +52점</div></div>
@@ -844,56 +815,25 @@ select{cursor:pointer}
     <div class="grid-2">
       <div class="card fade-up d2">
         <div class="sec-title">진행 중인 안건</div>
-
-        <div class="vote-item" id="vote-v1">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px">
-            <div class="vote-title">[평가] 2025-2학기 산학 프로젝트 평가 루브릭 개정안
-              <span class="tag tag-coral" style="font-size:9px">긴급</span>
-              <span class="voted-badge">투표완료</span>
-            </div>
-            <span style="font-family:var(--mono);font-size:10px;color:var(--coral)">D-3</span>
-          </div>
-          <div class="vote-meta vote-count">참여 52명 · 찬성 69% · 마감 D-3</div>
-          <div class="vote-bar-bg"><div class="vote-bar-fill" style="width:69%"></div></div>
+        <div class="vote-item">
+          <div class="vote-title">[평가] 2025-2학기 산학 프로젝트 평가 루브릭 개정안 <span class="tag tag-coral" style="font-size:9px">긴급</span></div>
+          <div class="vote-meta">발의: 교수회의 · 참여 52명 · 찬성 68% · 마감 D-3</div>
+          <div class="vote-bar-bg"><div class="vote-bar-fill" style="width:68%"></div></div>
           <div style="font-size:11px;color:var(--text2);margin:7px 0;line-height:1.6">AI Agent 활용 역량을 평가 루브릭에 공식 항목으로 포함하는 개정안.</div>
-          <div style="display:flex;gap:6px">
-            <button class="btn btn-teal btn-xs vote-action-btn" onclick="castVote('v1',true)">찬성</button>
-            <button class="btn btn-xs vote-action-btn" style="color:var(--coral)" onclick="castVote('v1',false)">반대</button>
-            <button class="btn btn-xs">의견 남기기</button>
-          </div>
+          <div style="display:flex;gap:6px"><button class="btn btn-teal btn-xs">찬성</button><button class="btn btn-xs" style="color:var(--coral)">반대</button><button class="btn btn-xs">의견 남기기</button></div>
         </div>
-
-        <div class="vote-item" id="vote-v2">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px">
-            <div class="vote-title">[파트너] 신규 파트너 승인 — ㈜인터렉티브랩
-              <span class="voted-badge">투표완료</span>
-            </div>
-            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">D-6</span>
-          </div>
-          <div class="vote-meta vote-count">참여 61명 · 찬성 84% · 마감 D-6</div>
+        <div class="vote-item">
+          <div class="vote-title">[파트너] 신규 파트너 승인 — ㈜인터렉티브랩</div>
+          <div class="vote-meta">발의: 산학협력팀 · 참여 61명 · 찬성 84% · 마감 D-6</div>
           <div class="vote-bar-bg"><div class="vote-bar-fill" style="width:84%"></div></div>
-          <div style="display:flex;gap:6px;margin-top:8px">
-            <button class="btn btn-teal btn-xs vote-action-btn" onclick="castVote('v2',true)">찬성</button>
-            <button class="btn btn-xs vote-action-btn" style="color:var(--coral)" onclick="castVote('v2',false)">반대</button>
-          </div>
+          <div style="display:flex;gap:6px;margin-top:8px"><button class="btn btn-teal btn-xs">찬성</button><button class="btn btn-xs" style="color:var(--coral)">반대</button></div>
         </div>
-
-        <div class="vote-item" id="vote-v3">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px">
-            <div class="vote-title">[정책] 외부 연구자 데이터 접근 권한 정책 v1.0
-              <span class="voted-badge">투표완료</span>
-            </div>
-            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">D-12</span>
-          </div>
-          <div class="vote-meta vote-count">참여 28명 · 찬성 50% · 마감 D-12</div>
-          <div class="vote-bar-bg"><div class="vote-bar-fill" style="width:50%"></div></div>
-          <div style="display:flex;gap:6px;margin-top:8px">
-            <button class="btn btn-teal btn-xs vote-action-btn" onclick="castVote('v3',true)">찬성</button>
-            <button class="btn btn-xs vote-action-btn" style="color:var(--coral)" onclick="castVote('v3',false)">반대</button>
-            <button class="btn btn-xs">의견 남기기</button>
-          </div>
+        <div class="vote-item">
+          <div class="vote-title">[정책] 외부 연구자 플랫폼 데이터 접근 권한 정책 v1.0</div>
+          <div class="vote-meta">발의: 연구윤리위원회 · 참여 28명 · 찬성 51% · 마감 D-12</div>
+          <div class="vote-bar-bg"><div class="vote-bar-fill" style="width:51%"></div></div>
+          <div style="display:flex;gap:6px;margin-top:8px"><button class="btn btn-teal btn-xs">찬성</button><button class="btn btn-xs" style="color:var(--coral)">반대</button><button class="btn btn-xs">의견 남기기</button></div>
         </div>
-
         <div class="vote-item" style="border:none;padding-bottom:0">
           <div class="vote-title">[완료] AI Agent 학습 윤리 가이드라인 v1.2</div>
           <div class="vote-meta">통과 · 찬성 84% · 2025.09.01 시행</div>
@@ -903,7 +843,6 @@ select{cursor:pointer}
 
       <div class="card fade-up d3">
         <div class="sec-title">내 기여 이력</div>
-        <div id="contrib-list">
         <div class="contrib-item"><span>스마트 라이빙 UX 결과물 1차 제출</span><span class="contrib-score">+60</span></div>
         <div class="contrib-item"><span>평가 루브릭 개정 투표 참여</span><span class="contrib-score">+10</span></div>
         <div class="contrib-item"><span>팀원 상호 피드백 작성 (3건)</span><span class="contrib-score">+30</span></div>
@@ -966,248 +905,18 @@ select{cursor:pointer}
   </div><!-- /portfolio -->
 
 </div><!-- /main -->
-
+</div><!-- /app -->
 
 <script>
-/* ════════════════════════════════════════════════════
-   G·A·I Platform v0.3 — 기능 확장
-   ① 로그인 역할 분기  ② DAO 투표 로직  ③ AI Agent API
-   ════════════════════════════════════════════════════ */
-
-/* ── 상수 ── */
-const TITLES={login:'로그인',dashboard:'홈 대시보드',intro:'플랫폼 소개',project:'프로젝트 매칭',agent:'AI Agent',dao:'DAO 거버넌스',portfolio:'포트폴리오'};
-
-const ROLE_META={
-  student: {label:'학생',name:'디자인 전공생',dept:'시각·영상·실감·UX/UI 전공',init:'학생',
-    navHide:[], color:'#534AB7',
-    dashMsg:'AI Agent와 함께 프로젝트를 진행하고, DAO 기여로 포트폴리오를 강화하세요.'},
-  professor:{label:'교수',name:'교수 / 교육자',dept:'KBU 디자인학과',init:'교수',
-    navHide:[], color:'#0F6E56',
-    dashMsg:'수업-프로젝트를 연계하고, 학습 진도와 AI Agent 활용 현황을 모니터링하세요.'},
-  industry: {label:'기업',name:'산업체 파트너',dept:'산학협력 멘토',init:'기업',
-    navHide:['s-intro'], color:'#993C1D',
-    dashMsg:'프로젝트를 등록하고 학생 팀을 멘토링하세요. 우수 결과물은 채용으로 연결됩니다.'},
-  researcher:{label:'연구',name:'외부 연구자',dept:'HCI / HCAI 연구',init:'연구',
-    navHide:[], color:'#993556',
-    dashMsg:'플랫폼 데이터와 AI 상호작용 로그를 열람하고 HCI/HCAI 연구에 활용하세요.'}
+const TITLES={dashboard:'홈 대시보드',intro:'플랫폼 소개',project:'프로젝트 매칭',agent:'AI Agent',dao:'DAO 거버넌스',portfolio:'포트폴리오'};
+const ROLES={
+  student:{name:'디자인 전공생',dept:'시각·영상·실감·UX/UI 전공',init:'학생'},
+  professor:{name:'교수 / 교육자',dept:'KBU 디자인학과',init:'교수'},
+  industry:{name:'산업체 파트너',dept:'산학협력 멘토',init:'기업'},
+  researcher:{name:'외부 연구자',dept:'HCI / HCAI 연구',init:'연구'}
 };
 
-/* ── 전역 상태 ── */
-let STATE = {
-  loggedIn: false,
-  role: 'student',
-  userName: '',
-  score: 248,
-  votedItems: new Set(JSON.parse(sessionStorage.getItem('gai_voted')||'[]')),
-  agentType: 'research',
-  agentProject: '스마트 라이빙 UX 리디자인',
-  chatHistory: []
-};
-
-/* DAO 투표 데이터 */
-const VOTES = {
-  v1:{title:'2025-2학기 산학 평가 루브릭 개정안', pro:36, con:16, total:52, deadline:'D-3'},
-  v2:{title:'신규 파트너 승인 — ㈜인터렉티브랩',  pro:51, con:10, total:61, deadline:'D-6'},
-  v3:{title:'외부 연구자 데이터 접근 권한 정책',   pro:14, con:14, total:28, deadline:'D-12'}
-};
-
-/* ══════════════════════════════════════
-   ① 로그인 역할 분기
-   ══════════════════════════════════════ */
-function loginAs(role){
-  const names={student:'김디자인',professor:'이교수',industry:'박멘토',researcher:'최연구'};
-  STATE.loggedIn=true;
-  STATE.role=role;
-  STATE.userName=names[role];
-  STATE.chatHistory=[];
-  sessionStorage.setItem('gai_role',role);
-  sessionStorage.setItem('gai_user',names[role]);
-  applyRole(role);
-  show('dashboard', document.querySelector('.nav-item'));
-  renderDAO();
-}
-
-function applyRole(role){
-  const m=ROLE_META[role];
-  document.getElementById('sb-name').textContent=STATE.userName;
-  document.getElementById('sb-dept').textContent=m.dept;
-  document.getElementById('sb-avatar').textContent=m.init;
-  document.getElementById('sb-avatar').style.background=role==='student'?'var(--purple-l)':
-    role==='professor'?'var(--teal-l)':role==='industry'?'var(--coral-l)':'var(--pink-l)';
-  document.getElementById('sb-avatar').style.color=m.color;
-  document.querySelectorAll('.role-btn').forEach(b=>{
-    b.classList.toggle('active', b.dataset.role===role);
-  });
-  /* 역할별 사이드바 항목 표시/숨김 */
-  document.querySelectorAll('.nav-item').forEach(n=>{
-    const target=n.getAttribute('data-target');
-    if(!target) return;
-    n.style.display=(m.navHide.includes('s-'+target))?'none':'flex';
-  });
-  /* 대시보드 역할 메시지 */
-  const el=document.getElementById('role-dash-msg');
-  if(el) el.textContent=m.dashMsg;
-  /* 역할별 score 세팅 */
-  const scores={student:248,professor:0,industry:0,researcher:120};
-  STATE.score=scores[role]||0;
-  document.getElementById('dao-score-val').textContent=STATE.score;
-}
-
-function logout(){
-  STATE.loggedIn=false;
-  sessionStorage.removeItem('gai_role');
-  sessionStorage.removeItem('gai_user');
-  show('login',null);
-}
-
-/* ══════════════════════════════════════
-   ② DAO 투표 로직
-   ══════════════════════════════════════ */
-function renderDAO(){
-  Object.keys(VOTES).forEach(id=>renderVoteItem(id));
-  document.getElementById('dao-score-val').textContent=STATE.score;
-}
-
-function renderVoteItem(id){
-  const v=VOTES[id];
-  const pct=Math.round(v.pro/(v.total||1)*100);
-  const el=document.getElementById('vote-'+id);
-  if(!el) return;
-  const voted=STATE.votedItems.has(id);
-  el.querySelector('.vote-bar-fill').style.width=pct+'%';
-  el.querySelector('.vote-count').textContent=`참여 ${v.total}명 · 찬성 ${pct}% · 마감 ${v.deadline}`;
-  el.querySelectorAll('.vote-action-btn').forEach(b=>b.disabled=voted);
-  if(voted) el.querySelectorAll('.vote-action-btn').forEach(b=>b.style.opacity='0.45');
-  el.querySelector('.voted-badge').style.display=voted?'inline-block':'none';
-}
-
-function castVote(id, isFor){
-  if(STATE.votedItems.has(id)){showToast('이미 투표하셨습니다.');return;}
-  if(!STATE.loggedIn){showToast('로그인이 필요합니다.');return;}
-  const v=VOTES[id];
-  if(isFor) v.pro++; else v.con++;
-  v.total++;
-  STATE.votedItems.add(id);
-  STATE.score+=10;
-  const arr=[...STATE.votedItems];
-  sessionStorage.setItem('gai_voted',JSON.stringify(arr));
-  /* 기여 이력 추가 */
-  addContrib(`[DAO 투표] ${v.title}`,10);
-  document.getElementById('dao-score-val').textContent=STATE.score;
-  renderVoteItem(id);
-  showToast(`투표 완료! 기여 점수 +10이 적립되었습니다.`);
-}
-
-function addContrib(label,score){
-  const list=document.getElementById('contrib-list');
-  if(!list) return;
-  const row=document.createElement('div');
-  row.className='contrib-item fade-up';
-  row.style.animation='none';
-  row.innerHTML=`<span>${label}</span><span class="contrib-score">+${score}</span>`;
-  list.prepend(row);
-  row.offsetHeight;
-  row.style.animation='';
-}
-
-/* ══════════════════════════════════════
-   ③ AI Agent API 연동 (Anthropic)
-   ══════════════════════════════════════ */
-const AGENT_PROMPTS={
-  research:'당신은 디자인 리서치 전문 AI Agent입니다. HCI, UX, HCAI 관련 논문과 이론을 중심으로 답변하세요.',
-  feedback:'당신은 디자인 결과물 피드백 전문 AI Agent입니다. HCI 원칙과 사용자 중심 설계 관점에서 구체적인 개선 제안을 제공하세요.',
-  mentor:'당신은 디자인 산학 프로젝트 멘토링 AI Agent입니다. 프로젝트 단계별 방법론과 실무 프로세스를 안내하세요.'
-};
-
-function buildSystemPrompt(){
-  const role=ROLE_META[STATE.role].label;
-  const agent=AGENT_PROMPTS[STATE.agentType]||AGENT_PROMPTS.research;
-  return `${agent}\n\n[플랫폼 컨텍스트]\n- 플랫폼: G·A·I Platform (KBU 디자인학과 산학 교육 플랫폼)\n- 사용자 역할: ${role}\n- 현재 프로젝트: ${STATE.agentProject}\n- HCAI 원칙: 학습자의 자율성과 창의성을 존중하며, 최종 판단은 항상 학습자가 합니다.\n- 답변은 반드시 한국어로, 200자 이내로 간결하게 작성하세요.`;
-}
-
-async function sendMsg(){
-  const inp=document.getElementById('chat-input');
-  const val=inp.value.trim();
-  if(!val) return;
-  inp.value='';
-
-  const area=document.getElementById('chat-area');
-  /* 사용자 메시지 */
-  const ur=document.createElement('div');
-  ur.className='chat-row user fade-up';
-  ur.innerHTML=`<div class="chat-avatar" style="background:var(--bg2);color:var(--text2)">${ROLE_META[STATE.role].init}</div><div class="agent-bubble bubble-user">${escHtml(val)}</div>`;
-  area.appendChild(ur);
-  area.scrollTop=area.scrollHeight;
-
-  /* 히스토리 추가 */
-  STATE.chatHistory.push({role:'user',content:val});
-
-  /* AI 응답 자리 생성 */
-  const ar=document.createElement('div');
-  ar.className='chat-row fade-up';
-  const bubble=document.createElement('div');
-  bubble.className='agent-bubble bubble-ai';
-  bubble.innerHTML='<span class="typing-dots"><span>·</span><span>·</span><span>·</span></span>';
-  ar.innerHTML=`<div class="chat-avatar" style="background:var(--purple-l);color:var(--purple)">AI</div>`;
-  ar.appendChild(bubble);
-  area.appendChild(ar);
-  area.scrollTop=area.scrollHeight;
-
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:400,
-        system:buildSystemPrompt(),
-        messages:STATE.chatHistory.slice(-6)
-      })
-    });
-    if(!res.ok) throw new Error('API '+res.status);
-    const data=await res.json();
-    const reply=data.content?.find(c=>c.type==='text')?.text||'응답을 받지 못했습니다.';
-    STATE.chatHistory.push({role:'assistant',content:reply});
-    /* 타이핑 효과 */
-    bubble.innerHTML='';
-    await typeText(bubble, reply);
-    /* 기여 점수 +2 */
-    STATE.score+=2;
-    document.getElementById('dao-score-val').textContent=STATE.score;
-  } catch(e){
-    bubble.innerHTML=`<span style="color:var(--coral)">⚠ API 연결 오류: API 키를 설정하거나 네트워크를 확인해주세요.</span><br><span style="font-family:var(--mono);font-size:10px;color:var(--text3)">${e.message}</span>`;
-  }
-  area.scrollTop=area.scrollHeight;
-}
-
-async function typeText(el, text){
-  el.textContent='';
-  for(const ch of text){
-    el.textContent+=ch;
-    await new Promise(r=>setTimeout(r,18));
-  }
-}
-
-function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-/* ── 토스트 알림 ── */
-function showToast(msg){
-  let t=document.getElementById('gai-toast');
-  if(!t){
-    t=document.createElement('div');
-    t.id='gai-toast';
-    t.style.cssText='position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#1A1A1A;color:#fff;font-size:12px;padding:10px 20px;border-radius:20px;z-index:9999;pointer-events:none;opacity:0;transition:opacity .25s;font-family:var(--sans);white-space:nowrap';
-    document.body.appendChild(t);
-  }
-  t.textContent=msg;
-  t.style.opacity='1';
-  clearTimeout(t._tid);
-  t._tid=setTimeout(()=>t.style.opacity='0',2800);
-}
-
-/* ── 공통 유틸 ── */
 function show(id,navEl){
-  if(id!=='login'&&!STATE.loggedIn){show('login',null);return;}
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   const sc=document.getElementById('s-'+id);
@@ -1219,41 +928,42 @@ function show(id,navEl){
 function setRole(role,btn){
   document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  STATE.role=role;
-  applyRole(role);
+  const r=ROLES[role];
+  document.getElementById('sb-name').textContent=r.name;
+  document.getElementById('sb-dept').textContent=r.dept;
+  document.getElementById('sb-avatar').textContent=r.init;
 }
 
-function toggleDetail(id){document.getElementById(id).classList.toggle('open');}
+function toggleDetail(id){
+  document.getElementById(id).classList.toggle('open');
+}
 
-function selectAgent(btn,name,desc,type){
+function selectAgent(btn,name,desc){
   document.querySelectorAll('.agent-type-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  STATE.agentType=type||'research';
-  STATE.chatHistory=[];
   document.getElementById('agent-title').textContent=name+' — 대화';
+  document.getElementById('chat-area').innerHTML=`
+    <div class="chat-row">
+      <div class="chat-avatar" style="background:var(--purple-l);color:var(--purple)">AI</div>
+      <div class="agent-bubble bubble-ai"><strong>${name}</strong>입니다.<br><span style="font-size:11px;color:var(--text3)">${desc}</span><br>무엇을 도와드릴까요?</div>
+    </div>`;
+}
+
+function sendMsg(){
+  const inp=document.getElementById('chat-input');
+  const val=inp.value.trim();if(!val)return;
   const area=document.getElementById('chat-area');
-  area.innerHTML=`<div class="chat-row"><div class="chat-avatar" style="background:var(--purple-l);color:var(--purple)">AI</div><div class="agent-bubble bubble-ai"><strong>${name}</strong>입니다.<br><span style="font-size:11px;color:var(--text3)">${desc}</span><br>무엇이든 질문해주세요.</div></div>`;
+  const ur=document.createElement('div');ur.className='chat-row user fade-up';
+  ur.innerHTML=`<div class="chat-avatar" style="background:var(--bg2);color:var(--text2)">나</div><div class="agent-bubble bubble-user">${val}</div>`;
+  area.appendChild(ur);inp.value='';area.scrollTop=area.scrollHeight;
+  setTimeout(()=>{
+    const ar=document.createElement('div');ar.className='chat-row fade-up';
+    ar.innerHTML=`<div class="chat-avatar" style="background:var(--purple-l);color:var(--purple)">AI</div><div class="agent-bubble bubble-ai">관련 자료를 검색하고 있습니다...<br><span style="font-family:var(--mono);font-size:10px;color:var(--text3)">HCAI 원칙: 최종 판단은 학습자가 합니다.</span></div>`;
+    area.appendChild(ar);area.scrollTop=area.scrollHeight;
+  },700);
 }
 
 function setPrompt(txt){document.getElementById('chat-input').value=txt;document.getElementById('chat-input').focus();}
-
-function setAgentProject(sel){STATE.agentProject=sel.value;STATE.chatHistory=[];}
-
-/* ── 초기화 ── */
-(function init(){
-  /* 세션 복원 */
-  const savedRole=sessionStorage.getItem('gai_role');
-  const savedUser=sessionStorage.getItem('gai_user');
-  if(savedRole&&savedUser){
-    STATE.loggedIn=true;STATE.role=savedRole;STATE.userName=savedUser;
-    applyRole(savedRole);
-    show('dashboard',document.querySelector('.nav-item'));
-    renderDAO();
-  } else {
-    show('login',null);
-  }
-})();
 </script>
-</div><!-- /app -->
 </body>
 </html>
