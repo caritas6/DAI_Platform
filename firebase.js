@@ -15,12 +15,13 @@ import { getFirestore, doc, getDoc, setDoc, updateDoc, collection,
 
 /* ── Firebase 설정 (본인 프로젝트로 교체) ── */
 const firebaseConfig = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT.firebaseapp.com",
-  projectId:         "YOUR_PROJECT_ID",
-  storageBucket:     "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId:             "YOUR_APP_ID"
+  apiKey: "AIzaSyCoNHbZNqiDil3nFDk1Ry2MIoUSPnDZ8A8",
+  authDomain: "g-a-i2026.firebaseapp.com",
+  projectId: "g-a-i2026",
+  storageBucket: "g-a-i2026.firebasestorage.app",
+  messagingSenderId: "903996714406",
+  appId: "1:903996714406:web:4dce52554343d00bf47367",
+  measurementId: "G-TZV926FH73"
 };
 
 /* ── 초기화 ── */
