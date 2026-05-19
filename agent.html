@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G·A·I Platform — AI Agent</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div id="gai-toast"></div>
+<div id="app">
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sb-logo"><div class="logo-mark">G·A·I</div><div class="logo-sub">KBU 디자인학과<br>산학 교육 플랫폼 v0.4</div></div>
+  <div class="sb-section">메인</div>
+  <a href="dashboard.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>홈 대시보드</a>
+  <a href="intro.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M8 7v4M8 5.2v.5"/></svg>플랫폼 소개</a>
+  <a href="project.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4h12M2 8h8M2 12h5"/><circle cx="13" cy="11" r="2.5"/></svg>프로젝트 매칭</a>
+  <div class="sb-section">학습</div>
+  <a href="agent.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M5.5 6.5C5.5 5 10.5 5 10.5 6.5S8 9 8 10"/><circle cx="8" cy="12.5" r=".6" fill="currentColor" stroke="none"/></svg>AI Agent</a>
+  <div class="sb-section">커뮤니티</div>
+  <a href="dao.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="4" r="2"/><circle cx="3" cy="12" r="2"/><circle cx="13" cy="12" r="2"/><path d="M8 6v2.5M8 8.5l-3 2M8 8.5l3 2"/></svg>DAO 거버넌스</a>
+  <a href="portfolio.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="3.5" width="13" height="10" rx="1.5"/><path d="M5 3.5V2.5a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v1"/><path d="M4 8h8M4 11h5"/></svg>포트폴리오</a>
+  <div class="role-tab-wrap"><div class="role-label">내 역할</div><span class="role-badge" id="role-badge">학생</span></div>
+  <div class="sb-bottom">
+    <div class="user-chip"><div class="avatar" id="sb-avatar">학생</div><div><div class="user-name" id="sb-name">로딩 중...</div><div class="user-role-text" id="sb-dept">KBU 디자인학과</div></div></div>
+    <button class="logout-btn" onclick="GAI.logout()">로그아웃 / 역할 변경</button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div id="main">
+  <div class="topbar">
+    <div class="page-title">AI Agent</div>
+    <div class="topbar-right">
+      <span class="badge-pill"><span class="fb-status">Firebase 연결 중...</span></span>
+      <span class="badge-pill green"><span class="status-dot dot-green"></span>HCAI 활성</span>
+      <span class="badge-pill" id="session-count" style="color:var(--purple)">세션: —</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="research-banner fade-up d1">
+      <div class="research-kicker">HCAI — Human-Centered AI Agent · Firestore 세션 저장</div>
+      <div class="research-text"><strong>G·A·I Platform AI Agent</strong>는 HCAI 원칙에 따라 설계되었습니다. 모든 대화 세션은 Firestore에 저장되어 연구 데이터로 활용됩니다. 최종 판단은 항상 학습자가 합니다.</div>
+    </div>
+
+    <div class="grid-13">
+      <!-- Agent 선택 패널 -->
+      <div class="fade-up d1">
+        <div class="sec-title">Agent 유형</div>
+        <button class="agent-type-btn active" onclick="doSelectAgent(this,'리서치 Agent','논문·사례·이론 수집','research')">
+          <div class="agent-icon" style="background:var(--purple-l)">🔍</div>
+          <div><span class="agent-name">리서치 Agent</span><span class="agent-desc">논문 · 사례 · 이론 수집</span></div>
+        </button>
+        <button class="agent-type-btn" onclick="doSelectAgent(this,'피드백 Agent','HCI 기반 결과물 리뷰','feedback')">
+          <div class="agent-icon" style="background:var(--teal-l)">💬</div>
+          <div><span class="agent-name">피드백 Agent</span><span class="agent-desc">결과물 리뷰 · 개선 제안</span></div>
+        </button>
+        <button class="agent-type-btn" onclick="doSelectAgent(this,'멘토링 Agent','프로세스 · 방법론 가이드','mentor')">
+          <div class="agent-icon" style="background:var(--amber-l)">🧭</div>
+          <div><span class="agent-name">멘토링 Agent</span><span class="agent-desc">프로세스 · 방법론 가이드</span></div>
+        </button>
+
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border)">
+          <div class="sec-title">연결 프로젝트</div>
+          <select style="width:100%;margin-bottom:10px" onchange="doSetProject(this.value)">
+            <option>스마트 라이빙 UX 리디자인</option>
+            <option>AR 내비게이션 인터페이스</option>
+            <option>공공 키오스크 접근성 개선</option>
+            <option>㈜제니스케어 UX/브랜딩</option>
+            <option>㈜티지화이어 비주얼 아이덴티티</option>
+            <option>상현내추럴 브랜드 리뉴얼</option>
+            <option>친정엄마 서비스 UX</option>
+          </select>
+          <div style="padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r)">
+            <div class="sec-title" style="margin-bottom:5px">세션 정보</div>
+            <div class="li-meta">오늘 세션: <span id="today-sessions">—</span>회</div>
+            <div class="li-meta">누적: <span id="total-sessions">—</span>회</div>
+            <div class="li-meta">기여 점수: +<span class="dao-score-val">—</span></div>
+            <div style="font-size:10px;color:var(--purple);margin-top:4px;font-family:var(--mono)">HCAI 원칙 적용 중</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 채팅 영역 -->
+      <div class="fade-up d2">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <div class="sec-title" style="margin:0" id="agent-title">리서치 Agent — 대화</div>
+          <span class="badge-pill green"><span class="status-dot dot-green"></span>활성</span>
+        </div>
+
+        <div class="chat-area" id="chat-area">
+          <div class="chat-row">
+            <div class="chat-avatar" style="background:var(--purple-l);color:var(--purple)">AI</div>
+            <div class="agent-bubble bubble-ai">
+              안녕하세요. 리서치 Agent입니다.<br>
+              <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">연결: 스마트 라이빙 UX 리디자인</span><br>
+              대화 내용은 Firestore에 저장되어 연구에 활용됩니다. 무엇이든 질문해주세요.
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+          <input type="text" id="chat-input" placeholder="Agent에게 질문하기..." onkeydown="if(event.key==='Enter') doSend()">
+          <button class="btn btn-primary" onclick="doSend()">전송</button>
+        </div>
+        <div>
+          <div class="sec-title">빠른 질문</div>
+          <span class="shortcut-chip" onclick="doPrompt('HCI 관련 최신 논문 5편 찾아줘')">관련 논문 찾기</span>
+          <span class="shortcut-chip" onclick="doPrompt('결과물에 대한 HCI 기반 피드백 줘')">결과물 피드백</span>
+          <span class="shortcut-chip" onclick="doPrompt('다음 디자인 프로세스 단계 안내해줘')">다음 단계 안내</span>
+          <span class="shortcut-chip" onclick="doPrompt('HCAI 관점에서 AI 협업 방식 설명해줘')">HCAI 이론</span>
+          <span class="shortcut-chip" onclick="doPrompt('DAO 거버넌스 교육 적용 사례 찾아줘')">DAO 사례</span>
+          <span class="shortcut-chip" onclick="doPrompt('접근성 평가 체크리스트 만들어줘')">접근성 체크리스트</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script type="module">
+import { guardAuth, GAI, db, collection, getDocs, query, orderBy } from './assets/js/firebase.js';
+import { selectAgent, setProject, sendMsg, setPrompt } from './assets/js/agent.js';
+window.GAI = GAI;
+window.doSelectAgent = selectAgent;
+window.doSetProject  = setProject;
+window.doSend        = sendMsg;
+window.doPrompt      = setPrompt;
+
+guardAuth(async (user, profile) => {
+  /* 세션 수 로드 */
+  try {
+    const snap = await getDocs(
+      query(collection(db, 'users', user.uid, 'agentSessions'), orderBy('createdAt','desc'))
+    );
+    const sessions = snap.docs;
+    document.getElementById('total-sessions').textContent = sessions.length;
+    const today = new Date().toDateString();
+    const todayCount = sessions.filter(d => {
+      const ts = d.data().createdAt?.toDate?.();
+      return ts && ts.toDateString() === today;
+    }).length;
+    document.getElementById('today-sessions').textContent = todayCount;
+    document.getElementById('session-count').textContent = `세션: ${sessions.length}회`;
+  } catch(e) {
+    console.warn('세션 로드 실패', e);
+  }
+});
+</script>
+</body>
+</html>

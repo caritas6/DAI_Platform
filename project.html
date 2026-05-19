@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>G·A·I Platform — 프로젝트 매칭</title><link rel="stylesheet" href="assets/css/style.css"></head>
+<body><div id="gai-toast"></div><div id="app">
+<nav id="sidebar"><div class="sb-logo"><div class="logo-mark">G·A·I</div><div class="logo-sub">KBU 디자인학과<br>산학 교육 플랫폼 v0.4</div></div>
+<div class="sb-section">메인</div>
+<a href="dashboard.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>홈 대시보드</a>
+<a href="intro.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M8 7v4M8 5.2v.5"/></svg>플랫폼 소개</a>
+<a href="project.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4h12M2 8h8M2 12h5"/><circle cx="13" cy="11" r="2.5"/></svg>프로젝트 매칭</a>
+<div class="sb-section">학습</div><a href="agent.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M5.5 6.5C5.5 5 10.5 5 10.5 6.5S8 9 8 10"/><circle cx="8" cy="12.5" r=".6" fill="currentColor" stroke="none"/></svg>AI Agent</a>
+<div class="sb-section">커뮤니티</div><a href="dao.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="4" r="2"/><circle cx="3" cy="12" r="2"/><circle cx="13" cy="12" r="2"/><path d="M8 6v2.5M8 8.5l-3 2M8 8.5l3 2"/></svg>DAO 거버넌스</a>
+<a href="portfolio.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="3.5" width="13" height="10" rx="1.5"/><path d="M5 3.5V2.5a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v1"/><path d="M4 8h8M4 11h5"/></svg>포트폴리오</a>
+<div class="role-tab-wrap"><div class="role-label">내 역할</div><span class="role-badge" id="role-badge">학생</span></div>
+<div class="sb-bottom"><div class="user-chip"><div class="avatar" id="sb-avatar">학생</div><div><div class="user-name" id="sb-name">로딩 중...</div><div class="user-role-text" id="sb-dept">KBU 디자인학과</div></div></div><button class="logout-btn" onclick="GAI.logout()">로그아웃 / 역할 변경</button></div></nav>
+<div id="main"><div class="topbar"><div class="page-title">프로젝트 매칭</div><div class="topbar-right"><span class="badge-pill"><span class="fb-status">Firebase 연결 중...</span></span><span class="badge-pill purple" id="pj-count">로딩 중...</span></div></div>
+<div class="content">
+  <div style="display:flex;gap:10px;margin-bottom:20px;align-items:center;flex-wrap:wrap" class="fade-up d1">
+    <input type="search" id="pj-search" placeholder="프로젝트명, 기업명, 키워드..." style="flex:1;min-width:180px">
+    <select id="pj-type"><option value="">전체 유형</option><option value="산학">산학 협력</option><option value="재능나눔">디자인 재능나눔</option></select>
+    <select id="pj-status"><option value="">전체 상태</option><option value="모집중">모집 중</option><option value="진행중">진행 중</option></select>
+    <button class="btn btn-primary btn-sm" onclick="loadProjects()">검색</button>
+  </div>
+  <div id="pj-list" class="fade-up d2">
+    <div style="text-align:center;padding:40px;color:var(--text4);font-family:var(--mono)">Firestore에서 프로젝트를 불러오는 중...</div>
+  </div>
+</div></div></div>
+<script type="module">
+import{guardAuth,GAI,getProjects,showToast,toggleDetail}from'./assets/js/firebase.js';
+window.GAI=GAI;window.toggleDetail=toggleDetail;
+const STATIC=[
+  {id:'p1',title:'스마트 라이빙 UX 리디자인',company:'㈜루미테크',type:'산학',status:'모집중',major:'UX/UI · 시각',tags:['인터랙션','접근성','HCI'],progress:10,desc:'스마트홈 노인 사용자 접근성 UX 리디자인. Figma 프로토타입까지.'},
+  {id:'p2',title:'AR 내비게이션 인터페이스',company:'㈜모빌리티스튜디오',type:'산학',status:'모집중',major:'실감콘텐츠 · UX',tags:['XR','AR','HMI'],progress:10,desc:'차량 AR HUD 인터페이스 콘셉트 및 데모.'},
+  {id:'p3',title:'공공 키오스크 접근성 개선',company:'경기도청 디지털서비스과',type:'산학',status:'진행중',major:'서비스 디자인',tags:['공공','접근성','다국어'],progress:82,desc:'경기도 외국인 주민 대상 다국어 인터페이스 개선.'},
+  {id:'r1',title:'㈜제니스케어 헬스케어 UX/브랜딩',company:'㈜제니스케어',type:'재능나눔',status:'진행중',major:'시각 · UX/UI',tags:['헬스케어','브랜딩'],progress:60,desc:'헬스케어 스타트업 UX 개선 및 브랜드 아이덴티티.'},
+  {id:'r2',title:'㈜티지화이어 비주얼 아이덴티티',company:'㈜티지화이어',type:'재능나눔',status:'진행중',major:'시각 · 영상',tags:['패키지','영상'],progress:40,desc:'제품 라인업 비주얼 아이덴티티 및 패키지 디자인.'},
+  {id:'r3',title:'상현내추럴 친환경 브랜드 리뉴얼',company:'상현내추럴',type:'재능나눔',status:'진행중',major:'시각 · 영상',tags:['친환경','SNS'],progress:70,desc:'자연주의 브랜드 리뉴얼 및 SNS 콘텐츠.'},
+  {id:'r4',title:'친정엄마 시니어 케어 UX',company:'친정엄마',type:'재능나눔',status:'진행중',major:'UX/UI · 시각',tags:['시니어','서비스UX'],progress:45,desc:'시니어 케어 서비스 UX 개선 및 홍보물.'},
+  {id:'r5',title:'㈜에이라이프 라이프스타일 패키지',company:'㈜에이라이프',type:'재능나눔',status:'진행중',major:'시각',tags:['라이프스타일','패키지'],progress:55,desc:'라이프스타일 브랜드 패키지 리뉴얼.'},
+];
+async function loadProjects(){
+  const list=document.getElementById('pj-list');
+  list.innerHTML='<div style="text-align:center;padding:20px;color:var(--text4);font-family:var(--mono)">불러오는 중...</div>';
+  let projects=STATIC;
+  try{const fb=await getProjects();if(fb.length>0)projects=fb;}catch(e){/* static fallback */}
+  const q=document.getElementById('pj-search').value.toLowerCase();
+  const t=document.getElementById('pj-type').value;
+  const s=document.getElementById('pj-status').value;
+  let filtered=projects.filter(p=>{
+    if(q&&!p.title.toLowerCase().includes(q)&&!p.company.toLowerCase().includes(q))return false;
+    if(t&&p.type!==t)return false;
+    if(s&&p.status!==s)return false;
+    return true;
+  });
+  document.getElementById('pj-count').textContent=filtered.length+'건';
+  if(!filtered.length){list.innerHTML='<div style="text-align:center;padding:40px;color:var(--text4)">검색 결과가 없습니다.</div>';return;}
+  const sBanner=filtered.some(p=>p.type==='산학');
+  const rBanner=filtered.some(p=>p.type==='재능나눔');
+  let html='';
+  if(sBanner){
+    html+=`<div style="margin-bottom:14px"><div class="sec-title">산학 협력 프로젝트</div></div>`;
+    filtered.filter(p=>p.type==='산학').forEach((p,i)=>{html+=renderCard(p,i);});
+  }
+  if(rBanner){
+    html+=`<div style="margin-top:24px;margin-bottom:14px;padding-top:20px;border-top:2px solid var(--border2)"><div style="display:flex;justify-content:space-between;align-items:center"><div class="sec-title">디자인 재능나눔 사업</div><span class="badge-pill green">관학산 협력 · (재)경기도경제과학진흥원</span></div></div>`;
+    filtered.filter(p=>p.type==='재능나눔').forEach((p,i)=>{html+=renderCard(p,i+10);});
+  }
+  list.innerHTML=html;
+}
+function renderCard(p,i){
+  const tagHtml=(p.tags||[]).map(t=>`<span class="tag tag-teal">${t}</span>`).join('');
+  const statusCls=p.status==='모집중'?'tag-teal':'tag-gray';
+  const typeBadge=p.type==='재능나눔'?`<span class="tag tag-amber" style="font-size:9px">재능나눔</span>`:'';
+  return `<div class="pj-card fade-up" style="animation-delay:${i*0.04}s" onclick="toggleDetail('pd${i}')">
+    <div class="pj-header">
+      <div><span class="company-chip">${p.company}</span><span class="tag ${statusCls}">${p.status}</span>${typeBadge}</div>
+      <button class="btn btn-primary btn-xs" onclick="event.stopPropagation();showToast('지원서 양식을 준비 중입니다.')">지원하기</button>
+    </div>
+    <div class="li-title" style="margin-bottom:4px">${p.title}</div>
+    <div class="li-meta" style="margin-bottom:8px">${p.major} · KBU 디자인학과 · 2025-2학기</div>
+    ${tagHtml}
+    <div class="detail-panel" id="pd${i}">
+      <div style="font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:10px">${p.desc}</div>
+      ${p.type==='재능나눔'?`<div style="padding:8px 10px;background:var(--teal-l);border-radius:var(--r);font-size:11px;color:var(--teal);margin-bottom:10px">참여기관: (재)경기도경제과학진흥원 · 참여대학: KBU 디자인학과</div>`:''}
+      ${p.progress>10?`<div class="progress-wrap" style="margin-bottom:4px"><div class="progress-fill" style="width:${p.progress}%;background:var(--teal-m)"></div></div><div style="font-family:var(--mono);font-size:10px;color:var(--text4)">${p.progress}% 완료</div>`:''}
+    </div>
+  </div>`;
+}
+guardAuth(()=>{loadProjects();});
+</script>
+</body></html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G·A·I Platform — DAO 거버넌스</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div id="gai-toast"></div>
+<div id="app">
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sb-logo"><div class="logo-mark">G·A·I</div><div class="logo-sub">KBU 디자인학과<br>산학 교육 플랫폼 v0.4</div></div>
+  <div class="sb-section">메인</div>
+  <a href="dashboard.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>홈 대시보드</a>
+  <a href="intro.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M8 7v4M8 5.2v.5"/></svg>플랫폼 소개</a>
+  <a href="project.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4h12M2 8h8M2 12h5"/><circle cx="13" cy="11" r="2.5"/></svg>프로젝트 매칭</a>
+  <div class="sb-section">학습</div>
+  <a href="agent.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M5.5 6.5C5.5 5 10.5 5 10.5 6.5S8 9 8 10"/><circle cx="8" cy="12.5" r=".6" fill="currentColor" stroke="none"/></svg>AI Agent</a>
+  <div class="sb-section">커뮤니티</div>
+  <a href="dao.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="4" r="2"/><circle cx="3" cy="12" r="2"/><circle cx="13" cy="12" r="2"/><path d="M8 6v2.5M8 8.5l-3 2M8 8.5l3 2"/></svg>DAO 거버넌스</a>
+  <a href="portfolio.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="3.5" width="13" height="10" rx="1.5"/><path d="M5 3.5V2.5a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v1"/><path d="M4 8h8M4 11h5"/></svg>포트폴리오</a>
+  <div class="role-tab-wrap"><div class="role-label">내 역할</div><span class="role-badge" id="role-badge">학생</span></div>
+  <div class="sb-bottom">
+    <div class="user-chip"><div class="avatar" id="sb-avatar">학생</div><div><div class="user-name" id="sb-name">로딩 중...</div><div class="user-role-text" id="sb-dept">KBU 디자인학과</div></div></div>
+    <button class="logout-btn" onclick="GAI.logout()">로그아웃 / 역할 변경</button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div id="main">
+  <div class="topbar">
+    <div class="page-title">DAO 거버넌스</div>
+    <div class="topbar-right">
+      <span class="badge-pill"><span class="fb-status">Firebase 연결 중...</span></span>
+      <span class="badge-pill purple">DAO 투표 D-3</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="insight-card fade-up d1">
+      <div class="insight-label">DAO Governance — KBU 디자인학과 · 2025-2학기 · Firebase Firestore 실시간 연동</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.7">
+        <strong>학생 · 교수 · 산업체 파트너 · 외부 연구자</strong> 4개 그룹이 동등하게 참여하는 교육 거버넌스.
+        투표 결과는 Firestore에 실시간 저장되며, 기여 점수가 자동 적립됩니다.
+      </div>
+    </div>
+
+    <!-- 지표 -->
+    <div class="metric-grid fade-up d2">
+      <div class="metric-card"><div class="metric-label">내 기여 점수</div><div class="metric-value dao-score-val" id="dao-score-display">—</div><div class="metric-sub">Firestore 실시간</div></div>
+      <div class="metric-card"><div class="metric-label">투표 참여율</div><div class="metric-value" id="m-vote-rate">—</div><div class="metric-sub">이번 학기</div></div>
+      <div class="metric-card"><div class="metric-label">보유 뱃지</div><div class="metric-value" id="m-badges">—</div><div class="metric-sub">누적 획득</div></div>
+      <div class="metric-card"><div class="metric-label">거버넌스 등급</div><div class="metric-value" id="m-grade" style="font-size:20px">—</div><div class="metric-sub">기여 점수 기반</div></div>
+    </div>
+
+    <div class="grid-2">
+      <!-- 투표 목록 -->
+      <div class="card fade-up d2">
+        <div class="sec-title">진행 중인 안건 <span style="font-family:var(--mono);font-size:9px;color:var(--teal);margin-left:4px">Firestore 실시간</span></div>
+
+        <div class="vote-item" id="vote-v1">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px">
+            <div class="vote-title">[평가] 산학 평가 루브릭 개정안 <span class="tag tag-coral" style="font-size:9px">긴급</span><span class="voted-badge">투표완료</span></div>
+            <span class="dao-urgency">D-3</span>
+          </div>
+          <div class="vote-meta vote-count">로딩 중...</div>
+          <div class="vote-bar-bg"><div class="vote-bar-fill" style="width:0%"></div></div>
+          <div style="font-size:11px;color:var(--text2);margin:7px 0;line-height:1.6">AI Agent 활용 역량을 평가 루브릭 공식 항목으로 포함하는 개정안.</div>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-teal btn-xs vote-action-btn" onclick="doVote('v1',true)">찬성</button>
+            <button class="btn btn-xs vote-action-btn" style="color:var(--coral)" onclick="doVote('v1',false)">반대</button>
+            <button class="btn btn-xs">의견 남기기</button>
+          </div>
+        </div>
+
+        <div class="vote-item" id="vote-v2">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px">
+            <div class="vote-title">[파트너] 신규 파트너 승인 — ㈜인터렉티브랩 <span class="voted-badge">투표완료</span></div>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">D-6</span>
+          </div>
+          <div class="vote-meta vote-count">로딩 중...</div>
+          <div class="vote-bar-bg"><div class="vote-bar-fill" style="width:0%"></div></div>
+          <div style="display:flex;gap:6px;margin-top:8px">
+            <button class="btn btn-teal btn-xs vote-action-btn" onclick="doVote('v2',true)">찬성</button>
+            <button class="btn btn-xs vote-action-btn" style="color:var(--coral)" onclick="doVote('v2',false)">반대</button>
+          </div>
+        </div>
+
+        <div class="vote-item" id="vote-v3">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px">
+            <div class="vote-title">[정책] 외부 연구자 데이터 접근 권한 정책 v1.0 <span class="voted-badge">투표완료</span></div>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">D-12</span>
+          </div>
+          <div class="vote-meta vote-count">로딩 중...</div>
+          <div class="vote-bar-bg"><div class="vote-bar-fill" style="width:0%"></div></div>
+          <div style="display:flex;gap:6px;margin-top:8px">
+            <button class="btn btn-teal btn-xs vote-action-btn" onclick="doVote('v3',true)">찬성</button>
+            <button class="btn btn-xs vote-action-btn" style="color:var(--coral)" onclick="doVote('v3',false)">반대</button>
+            <button class="btn btn-xs">의견 남기기</button>
+          </div>
+        </div>
+
+        <div class="vote-item" style="border:none;padding-bottom:0">
+          <div class="vote-title">[완료] AI Agent 학습 윤리 가이드라인 v1.2</div>
+          <div class="vote-meta">통과 · 찬성 84% · 2025.09.01 시행</div>
+          <span class="tag tag-teal">시행 중</span>
+        </div>
+      </div>
+
+      <!-- 기여 이력 -->
+      <div class="card fade-up d3">
+        <div class="sec-title">내 기여 이력 <span style="font-family:var(--mono);font-size:9px;color:var(--teal);margin-left:4px">실시간</span></div>
+        <div id="contrib-list">
+          <div style="font-size:11px;color:var(--text4);padding:12px 0;text-align:center">Firestore에서 불러오는 중...</div>
+        </div>
+
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+          <div class="sec-title">보유 뱃지</div>
+          <div id="badge-list">—</div>
+        </div>
+
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+          <div class="sec-title">기여 분포</div>
+          <div style="display:flex;gap:6px;align-items:center;margin-bottom:5px">
+            <div style="font-size:11px;color:var(--text2);width:80px">프로젝트</div>
+            <div style="flex:1"><div class="progress-wrap" style="margin:0"><div class="progress-fill" id="contrib-bar-pj" style="width:0%;background:var(--teal-m)"></div></div></div>
+            <div class="dao-score-val" style="font-family:var(--mono);font-size:10px;color:var(--text3);width:28px;text-align:right">—</div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center">
+            <div style="font-size:11px;color:var(--text2);width:80px">투표 참여</div>
+            <div style="flex:1"><div class="progress-wrap" style="margin:0"><div class="progress-fill" id="contrib-bar-vote" style="width:0%;background:var(--purple-m)"></div></div></div>
+            <div style="font-family:var(--mono);font-size:10px;color:var(--text3);width:28px;text-align:right" id="vote-score-val">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script type="module">
+import { guardAuth, GAI, watchVotes, watchContributions } from './assets/js/firebase.js';
+import { castVote, renderBadges } from './assets/js/dao.js';
+window.GAI = GAI;
+window.doVote = castVote;
+
+guardAuth((user, profile) => {
+  /* 등급 계산 */
+  const score = profile.score || 0;
+  const grade = score >= 500 ? 'Gold' : score >= 200 ? 'Silver' : 'Bronze';
+  document.getElementById('m-grade').textContent = grade;
+  document.getElementById('m-badges').textContent = (profile.badges || []).length;
+  renderBadges(profile.badges || ['첫 프로젝트 완료','우수 기여자','멘토링 이수']);
+
+  /* 투표 실시간 */
+  watchVotes((votes) => {
+    Object.values(votes).forEach(v => {
+      const el  = document.getElementById('vote-' + v.id);
+      if (!el) return;
+      const pct   = Math.round((v.pro||0) / Math.max(v.total||1,1) * 100);
+      const voted = GAI.votedItems.has(v.id);
+      el.querySelector('.vote-bar-fill').style.width = pct + '%';
+      el.querySelector('.vote-count').textContent =
+        `참여 ${v.total||0}명 · 찬성 ${pct}% · 마감 ${v.deadline||''}`;
+      el.querySelectorAll('.vote-action-btn').forEach(b => {
+        b.disabled = voted; b.style.opacity = voted ? '0.4' : '1';
+      });
+      const badge = el.querySelector('.voted-badge');
+      if (badge) badge.style.display = voted ? 'inline-block' : 'none';
+    });
+
+    /* 참여율 계산 */
+    const total = Object.keys(votes).length;
+    const voted = Object.keys(votes).filter(id => GAI.votedItems.has(id)).length;
+    document.getElementById('m-vote-rate').textContent =
+      total ? Math.round(voted/total*100) + '%' : '0%';
+  });
+
+  /* 기여 이력 실시간 */
+  watchContributions(user.uid, (items) => {
+    const list = document.getElementById('contrib-list');
+    list.innerHTML = items.length
+      ? items.map(i=>`<div class="contrib-item"><span>${i.label||''}</span><span class="contrib-score">+${i.score||0}</span></div>`).join('')
+      : `<div style="font-size:11px;color:var(--text4);padding:12px 0;text-align:center">아직 기여 이력이 없습니다.</div>`;
+
+    /* 분포 바 */
+    const pjScore   = items.filter(i=>(i.label||'').includes('프로젝트')).reduce((a,i)=>a+(i.score||0),0);
+    const voteScore = items.filter(i=>(i.label||'').includes('투표')).reduce((a,i)=>a+(i.score||0),0);
+    const total     = Math.max(pjScore + voteScore, 1);
+    document.getElementById('contrib-bar-pj').style.width   = Math.round(pjScore/total*100) + '%';
+    document.getElementById('contrib-bar-vote').style.width = Math.round(voteScore/total*100) + '%';
+    document.getElementById('vote-score-val').textContent   = voteScore;
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>G·A·I Platform — 포트폴리오</title><link rel="stylesheet" href="assets/css/style.css"></head>
+<body><div id="gai-toast"></div><div id="app">
+<nav id="sidebar"><div class="sb-logo"><div class="logo-mark">G·A·I</div><div class="logo-sub">KBU 디자인학과<br>산학 교육 플랫폼 v0.4</div></div>
+<div class="sb-section">메인</div>
+<a href="dashboard.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>홈 대시보드</a>
+<a href="intro.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M8 7v4M8 5.2v.5"/></svg>플랫폼 소개</a>
+<a href="project.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4h12M2 8h8M2 12h5"/><circle cx="13" cy="11" r="2.5"/></svg>프로젝트 매칭</a>
+<div class="sb-section">학습</div><a href="agent.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M5.5 6.5C5.5 5 10.5 5 10.5 6.5S8 9 8 10"/><circle cx="8" cy="12.5" r=".6" fill="currentColor" stroke="none"/></svg>AI Agent</a>
+<div class="sb-section">커뮤니티</div><a href="dao.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="4" r="2"/><circle cx="3" cy="12" r="2"/><circle cx="13" cy="12" r="2"/><path d="M8 6v2.5M8 8.5l-3 2M8 8.5l3 2"/></svg>DAO 거버넌스</a>
+<a href="portfolio.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="3.5" width="13" height="10" rx="1.5"/><path d="M5 3.5V2.5a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v1"/><path d="M4 8h8M4 11h5"/></svg>포트폴리오</a>
+<div class="role-tab-wrap"><div class="role-label">내 역할</div><span class="role-badge" id="role-badge">학생</span></div>
+<div class="sb-bottom"><div class="user-chip"><div class="avatar" id="sb-avatar">학생</div><div><div class="user-name" id="sb-name">로딩 중...</div><div class="user-role-text" id="sb-dept">KBU 디자인학과</div></div></div><button class="logout-btn" onclick="GAI.logout()">로그아웃 / 역할 변경</button></div></nav>
+<div id="main"><div class="topbar"><div class="page-title">포트폴리오</div><div class="topbar-right"><span class="badge-pill"><span class="fb-status">Firebase 연결 중...</span></span></div></div>
+<div class="content">
+  <div style="display:flex;gap:10px;margin-bottom:20px;align-items:center;flex-wrap:wrap" class="fade-up d1">
+    <input type="search" placeholder="프로젝트명, 키워드..." style="flex:1;min-width:180px">
+    <select><option>전체 전공</option><option>시각 디자인</option><option>영상 디자인</option><option>실감 콘텐츠</option><option>UX / UI</option></select>
+    <button class="btn btn-primary btn-sm" onclick="showToast('결과물 추가 기능은 Firebase Storage 연동 후 활성화됩니다.')">+ 결과물 추가</button>
+  </div>
+  <div class="pf-grid fade-up d2" id="pf-grid">
+    <div class="pf-card"><div class="pf-thumb" style="background:#C8E8DE"><span class="pf-thumb-label" style="color:var(--teal)">헬스케어 · UX</span></div><div class="pf-info"><div class="pf-title">㈜제니스케어 UX/브랜딩</div><div class="pf-team">KBU 디자인학과 팀 · 2025-2</div><div><span class="tag tag-teal" style="font-size:9px">헬스케어</span><span class="tag tag-purple" style="font-size:9px">UX</span></div></div></div>
+    <div class="pf-card"><div class="pf-thumb" style="background:#F0E8CC"><span class="pf-thumb-label" style="color:var(--amber)">제품 · 패키지</span></div><div class="pf-info"><div class="pf-title">㈜티지화이어 비주얼 아이덴티티</div><div class="pf-team">KBU 디자인학과 팀 · 2025-2</div><div><span class="tag tag-amber" style="font-size:9px">패키지</span><span class="tag tag-coral" style="font-size:9px">영상</span></div></div></div>
+    <div class="pf-card"><div class="pf-thumb" style="background:#D0CCF0"><span class="pf-thumb-label" style="color:var(--purple)">라이프스타일</span></div><div class="pf-info"><div class="pf-title">㈜에이라이프 패키지 디자인</div><div class="pf-team">KBU 디자인학과 팀 · 2025-2</div><div><span class="tag tag-purple" style="font-size:9px">브랜드</span><span class="tag tag-amber" style="font-size:9px">패키지</span></div></div></div>
+    <div class="pf-card"><div class="pf-thumb" style="background:#C8E8DE"><span class="pf-thumb-label" style="color:var(--teal)">친환경 · SNS</span></div><div class="pf-info"><div class="pf-title">상현내추럴 브랜드 리뉴얼</div><div class="pf-team">KBU 디자인학과 팀 · 2025-2</div><div><span class="tag tag-teal" style="font-size:9px">친환경</span><span class="tag tag-coral" style="font-size:9px">SNS</span></div></div></div>
+    <div class="pf-card"><div class="pf-thumb" style="background:#F0D8E8"><span class="pf-thumb-label" style="color:var(--pink)">시니어 케어</span></div><div class="pf-info"><div class="pf-title">친정엄마 서비스 UX/홍보</div><div class="pf-team">KBU 디자인학과 팀 · 2025-2</div><div><span class="tag tag-pink" style="font-size:9px">시니어</span><span class="tag tag-teal" style="font-size:9px">서비스UX</span></div></div></div>
+    <div class="pf-card pf-add" onclick="showToast('Firebase Storage 연동 후 활성화됩니다.')"><div style="font-size:20px;color:var(--text4)">＋</div><div style="font-size:11px;color:var(--text4)">새 결과물 추가</div></div>
+  </div>
+  <div style="display:flex;gap:10px">
+    <button class="btn" style="flex:1" onclick="showToast('PDF 내보내기 기능 준비 중입니다.')">PDF 포트폴리오 내보내기</button>
+    <button class="btn btn-primary" style="flex:1" onclick="showToast('공개 갤러리 공유 기능 준비 중입니다.')">공개 갤러리에 공유</button>
+    <button class="btn btn-teal" style="flex:1" onclick="showToast('연구 데이터 제출 기능 준비 중입니다.')">연구 데이터로 제출</button>
+  </div>
+</div></div></div>
+<script type="module">import{guardAuth,GAI,showToast}from'./assets/js/firebase.js';window.GAI=GAI;window.showToast=showToast;guardAuth(()=>{});</script>
+</body></html>

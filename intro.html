@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>G·A·I Platform — 플랫폼 소개</title><link rel="stylesheet" href="assets/css/style.css"></head>
+<body><div id="gai-toast"></div><div id="app">
+<nav id="sidebar"><div class="sb-logo"><div class="logo-mark">G·A·I</div><div class="logo-sub">KBU 디자인학과<br>산학 교육 플랫폼 v0.4</div></div>
+<div class="sb-section">메인</div>
+<a href="dashboard.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>홈 대시보드</a>
+<a href="intro.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M8 7v4M8 5.2v.5"/></svg>플랫폼 소개</a>
+<a href="project.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4h12M2 8h8M2 12h5"/><circle cx="13" cy="11" r="2.5"/></svg>프로젝트 매칭</a>
+<div class="sb-section">학습</div><a href="agent.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M5.5 6.5C5.5 5 10.5 5 10.5 6.5S8 9 8 10"/><circle cx="8" cy="12.5" r=".6" fill="currentColor" stroke="none"/></svg>AI Agent</a>
+<div class="sb-section">커뮤니티</div><a href="dao.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="4" r="2"/><circle cx="3" cy="12" r="2"/><circle cx="13" cy="12" r="2"/><path d="M8 6v2.5M8 8.5l-3 2M8 8.5l3 2"/></svg>DAO 거버넌스</a>
+<a href="portfolio.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="3.5" width="13" height="10" rx="1.5"/><path d="M5 3.5V2.5a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v1"/><path d="M4 8h8M4 11h5"/></svg>포트폴리오</a>
+<div class="role-tab-wrap"><div class="role-label">내 역할</div><span class="role-badge" id="role-badge">학생</span></div>
+<div class="sb-bottom"><div class="user-chip"><div class="avatar" id="sb-avatar">학생</div><div><div class="user-name" id="sb-name">로딩 중...</div><div class="user-role-text" id="sb-dept">KBU 디자인학과</div></div></div><button class="logout-btn" onclick="GAI.logout()">로그아웃 / 역할 변경</button></div></nav>
+<div id="main"><div class="topbar"><div class="page-title">플랫폼 소개</div><div class="topbar-right"><span class="badge-pill"><span class="fb-status">Firebase 연결 중...</span></span></div></div>
+<div class="content">
+  <div style="border-bottom:1px solid var(--border2);padding-bottom:24px;margin-bottom:24px" class="fade-up d1">
+    <div style="font-family:var(--mono);font-size:10px;color:var(--purple);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px">KBU 디자인학과 · G·A·I Platform v0.4 · Firebase 연동 · 2025-2학기</div>
+    <div style="font-size:26px;font-weight:300;line-height:1.35;margin-bottom:10px"><strong style="font-weight:500;color:var(--purple)">Governance · AI Agent · Interaction</strong><br>디자인 산학 교육의 새로운 프레임</div>
+    <div style="font-size:13px;color:var(--text2);max-width:640px;line-height:1.8">G·A·I Platform은 DAO 기반 거버넌스, HCAI 학습 에이전트, 산학 인터랙션을 통합한 KBU 디자인학과 교육 연구 플랫폼입니다. Firebase Firestore로 실시간 데이터를 관리하고, Anthropic AI Agent와 협업합니다.</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px">
+      <div class="role-card"><span style="font-size:18px;display:block;margin-bottom:6px">🎓</span><div style="font-size:12px;font-weight:500;margin-bottom:3px">학생</div><div style="font-size:10px;color:var(--text3)">프로젝트 · AI 협업</div></div>
+      <div class="role-card"><span style="font-size:18px;display:block;margin-bottom:6px">👩‍🏫</span><div style="font-size:12px;font-weight:500;margin-bottom:3px">교수 · 교육자</div><div style="font-size:10px;color:var(--text3)">커리큘럼 · 평가</div></div>
+      <div class="role-card"><span style="font-size:18px;display:block;margin-bottom:6px">🏢</span><div style="font-size:12px;font-weight:500;margin-bottom:3px">산업체 파트너</div><div style="font-size:10px;color:var(--text3)">멘토링 · 채용</div></div>
+      <div class="role-card"><span style="font-size:18px;display:block;margin-bottom:6px">🔬</span><div style="font-size:12px;font-weight:500;margin-bottom:3px">외부 연구자</div><div style="font-size:10px;color:var(--text3)">HCI/HCAI 연구</div></div>
+    </div>
+  </div>
+  <div class="grid-3 fade-up d2">
+    <div class="framework-card" style="border-left:3px solid var(--teal)"><div class="fw-kicker" style="color:var(--teal)">G — Governance</div><div class="fw-title">DAO 기반 참여 거버넌스</div><div class="fw-desc">학생·교수·파트너가 Firestore 기반 투표로 플랫폼 정책을 결정. 기여도·토큰·뱃지 자동 적립.</div><div style="margin-top:10px"><span class="tag tag-teal">투표</span><span class="tag tag-teal">기여 점수</span><span class="tag tag-teal">뱃지</span></div></div>
+    <div class="framework-card" style="border-left:3px solid var(--purple)"><div class="fw-kicker" style="color:var(--purple)">A — AI Agent</div><div class="fw-title">HCAI 기반 학습 에이전트</div><div class="fw-desc">Anthropic claude-sonnet 연동. 리서치·피드백·멘토링 3종 Agent. 대화 Firestore 저장.</div><div style="margin-top:10px"><span class="tag tag-purple">리서치</span><span class="tag tag-purple">피드백</span><span class="tag tag-purple">멘토링</span></div></div>
+    <div class="framework-card" style="border-left:3px solid var(--amber)"><div class="fw-kicker" style="color:var(--amber)">I — Interaction</div><div class="fw-title">산학 인터랙션 설계</div><div class="fw-desc">프로젝트 매칭 · 멘토링 · 포트폴리오. (재)경기도경제과학진흥원 디자인 재능나눔 사업 연계.</div><div style="margin-top:10px"><span class="tag tag-amber">매칭</span><span class="tag tag-amber">멘토링</span><span class="tag tag-amber">포트폴리오</span></div></div>
+  </div>
+</div></div></div>
+<script type="module">import{guardAuth,GAI}from'./assets/js/firebase.js';window.GAI=GAI;guardAuth(()=>{});</script>
+</body></html>
