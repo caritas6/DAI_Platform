@@ -272,13 +272,41 @@ const ROLE_MSG   = {
   researcher: '플랫폼 데이터와 AI 상호작용 로그를 열람하고 HCI/HCAI 연구에 활용하세요.'
 };
 
+
+  /* Firestore 프로필 로드 — 회원가입 직후 저장 지연 대비 최대 5회 재시도 */
+  async function loadProfile(uid, email) {
+    for (let i = 0; i < 5; i++) {
+      const s = await getDoc(doc(db,'users',uid));
+      if (s.exists()) return s.data();
+      await new Promise(r => setTimeout(r, 800));
+    }
+    /* 기본값 반환 (무한루프 방지) */
+    return { displayName: email?.split('@')[0]||'사용자', dept:'KBU 디자인학과', role:'student', score:0, badges:[] };
+  }
+
 onAuthStateChanged(auth, async user => {
   if (!user) { location.href = 'index.html'; return; }
 
-  /* 프로필 로드 */
-  const snap = await getDoc(doc(db, 'users', user.uid));
-  if (!snap.exists()) { location.href = 'index.html'; return; }
-  const p = snap.data();
+  /* 프로필 로드 — 회원가입 직후 Firestore 저장 지연 대비 최대 5회 재시도 */
+  let snap = null;
+  for (let i = 0; i < 5; i++) {
+    snap = await getDoc(doc(db, 'users', user.uid));
+    if (snap.exists()) break;
+    await new Promise(r => setTimeout(r, 800));
+  }
+
+  /* 5회 후에도 없으면 리디렉션 없이 기본값 표시 (무한루프 방지) */
+  let p;
+  if (!snap || !snap.exists()) {
+    p = {
+      displayName: user.email?.split('@')[0] || '사용자',
+      dept: 'KBU 디자인학과',
+      role: 'student',
+      score: 0
+    };
+  } else {
+    p = snap.data();
+  }
 
   /* UI 반영 */
   document.getElementById('sb-name').textContent    = p.displayName || user.email;

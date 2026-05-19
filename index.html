@@ -158,9 +158,17 @@ const ROLE_DEPT = {
 
 let selectedRole = 'student';
 
-/* 이미 로그인 상태면 대시보드로 */
-onAuthStateChanged(auth, user => {
-  if (user) location.href = 'dashboard.html';
+/* 이미 로그인 상태면 대시보드로 — 단, 방금 회원가입한 경우 Firestore 저장 완료까지 대기 */
+onAuthStateChanged(auth, async user => {
+  if (!user) return;
+  /* 프로필 존재 확인 후 이동 (없으면 회원가입 진행 중이므로 대기) */
+  let ready = false;
+  for (let i = 0; i < 5; i++) {
+    const snap = await getDoc(doc(db, 'users', user.uid));
+    if (snap.exists()) { ready = true; break; }
+    await new Promise(r => setTimeout(r, 600));
+  }
+  if (ready) location.href = 'dashboard.html';
 });
 
 /* ── 탭 전환 ── */

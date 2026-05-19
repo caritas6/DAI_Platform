@@ -329,10 +329,7 @@ function renderVote(voteId, data) {
 onAuthStateChanged(auth, async user => {
   if (!user) { location.href='index.html'; return; }
   currentUser = user;
-  const snap = await getDoc(doc(db,'users',user.uid));
-  if (!snap.exists()) { location.href='index.html'; return; }
-  const p = snap.data();
-  applyProfile(p);
+  const p = await loadProfile(user.uid,user.email); applyProfile(p);
   votedItems = new Set(p.votedItems || []);
   document.getElementById('dao-score').textContent = p.score || 0;
   document.getElementById('m-badges').textContent  = (p.badges||[]).length;

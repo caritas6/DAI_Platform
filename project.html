@@ -275,11 +275,21 @@ function renderCard(p,i){
       ${p.progress>10?`<div class="prog"><div class="prog-fill" style="width:${p.progress}%;background:var(--teal-m)"></div></div><div style="font-family:var(--mono);font-size:10px;color:var(--text4);margin-top:3px">${p.progress}% 완료</div>`:''}
     </div></div>`;
 }
+
+  /* Firestore 프로필 로드 — 회원가입 직후 저장 지연 대비 최대 5회 재시도 */
+  async function loadProfile(uid, email) {
+    for (let i = 0; i < 5; i++) {
+      const s = await getDoc(doc(db,'users',uid));
+      if (s.exists()) return s.data();
+      await new Promise(r => setTimeout(r, 800));
+    }
+    /* 기본값 반환 (무한루프 방지) */
+    return { displayName: email?.split('@')[0]||'사용자', dept:'KBU 디자인학과', role:'student', score:0, badges:[] };
+  }
+
 onAuthStateChanged(auth, async user=>{
   if(!user){location.href='index.html';return;}
-  const snap=await getDoc(doc(db,'users',user.uid));
-  if(snap.exists())applyProfile(snap.data());
-  loadProjects();
+  const p=await loadProfile(user.uid,user.email); applyProfile(p); loadProjects();
 });
 </script>
 </body>

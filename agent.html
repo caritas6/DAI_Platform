@@ -332,12 +332,22 @@ window.sendMsg = async () => {
   area.scrollTop=area.scrollHeight;
 };
 
+
+  /* Firestore 프로필 로드 — 회원가입 직후 저장 지연 대비 최대 5회 재시도 */
+  async function loadProfile(uid, email) {
+    for (let i = 0; i < 5; i++) {
+      const s = await getDoc(doc(db,'users',uid));
+      if (s.exists()) return s.data();
+      await new Promise(r => setTimeout(r, 800));
+    }
+    /* 기본값 반환 (무한루프 방지) */
+    return { displayName: email?.split('@')[0]||'사용자', dept:'KBU 디자인학과', role:'student', score:0, badges:[] };
+  }
+
 onAuthStateChanged(auth, async user=>{
   if(!user){location.href='index.html';return;}
   currentUser=user;
-  const snap=await getDoc(doc(db,'users',user.uid));
-  if(!snap.exists()){location.href='index.html';return;}
-  const p=snap.data(); applyProfile(p); userRole=p.role||'student';
+  const p=await loadProfile(user.uid,user.email); applyProfile(p); userRole=p.role||'student';
   try{
     const sessions=await getDocs(query(collection(db,'users',user.uid,'agentSessions'),orderBy('createdAt','desc')));
     document.getElementById('total-sessions').textContent=sessions.size;

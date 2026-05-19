@@ -239,10 +239,19 @@ window.doLogout = async () => { await signOut(auth); location.href = 'index.html
 window.toggleDetail = id => document.getElementById(id)?.classList.toggle('open');
 window.showToast = showToast;
 
+
+  async function loadProfile(uid, email) {
+    for (let i = 0; i < 5; i++) {
+      const s = await getDoc(doc(db,'users',uid));
+      if (s.exists()) return s.data();
+      await new Promise(r => setTimeout(r, 800));
+    }
+    return { displayName: email?.split('@')[0]||'사용자', dept:'KBU 디자인학과', role:'student', score:0, badges:[] };
+  }
+
 onAuthStateChanged(auth, async user => {
   if (!user) { location.href = 'index.html'; return; }
-  const snap = await getDoc(doc(db,'users',user.uid));
-  if (snap.exists()) applyProfile(snap.data());
+  const p = await loadProfile(user.uid,user.email); applyProfile(p);
 });
 </script>
 </body>
