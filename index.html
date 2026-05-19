@@ -17,26 +17,29 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh}
 .tab-btn{flex:1;padding:8px;font-size:12px;font-weight:500;border:none;background:none;cursor:pointer;color:var(--text3);font-family:var(--sans);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
 .tab-btn.active{color:var(--purple);border-bottom-color:var(--purple)}
 .role-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
-.role-card-btn{padding:12px;border:1px solid var(--border2);border-radius:var(--r2);background:var(--surface);cursor:pointer;text-align:left;transition:all .18s;font-family:var(--sans);border-left:3px solid transparent}
+.role-card-btn{padding:12px;border:1px solid var(--border2);border-radius:var(--r2);background:var(--surface);cursor:pointer;text-align:left;transition:all .18s;font-family:var(--sans);border-left:3px solid transparent;width:100%}
 .role-card-btn:hover{background:var(--bg2);transform:translateY(-1px)}
 .role-card-btn.selected{background:var(--purple-l);border-color:var(--purple);border-left-color:var(--purple)}
-.role-card-btn .icon{font-size:16px;display:block;margin-bottom:4px}
+.role-card-btn .icon{font-size:18px;display:block;margin-bottom:4px}
 .role-card-btn .rname{font-size:12px;font-weight:500;color:var(--text);display:block}
 .role-card-btn .rdesc{font-size:10px;color:var(--text3)}
 .form-group{margin-bottom:14px}
+.form-group label{font-size:12px;color:var(--text2);margin-bottom:4px;display:block}
 .divider{display:flex;align-items:center;gap:10px;margin:14px 0;color:var(--text4);font-size:11px}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border2)}
 .google-btn{width:100%;padding:9px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);cursor:pointer;font-size:13px;font-family:var(--sans);color:var(--text2);display:flex;align-items:center;justify-content:center;gap:8px;transition:all .15s}
 .google-btn:hover{background:var(--bg2)}
-.google-icon{width:16px;height:16px}
-#login-btn{width:100%;padding:10px;background:var(--purple);border:none;border-radius:var(--r);color:#fff;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sans)}
-#login-btn:hover{background:#3C3489}
-#login-btn:disabled{opacity:.65;cursor:not-allowed}
+.action-btn{width:100%;padding:10px;background:var(--purple);border:none;border-radius:var(--r);color:#fff;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sans)}
+.action-btn:hover{background:#3C3489}
+.action-btn:disabled{opacity:.65;cursor:not-allowed}
 .footer-note{text-align:center;font-family:var(--mono);font-size:9px;color:var(--text4);margin-top:20px;letter-spacing:.05em}
+.loading-spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 <div id="gai-toast"></div>
+
 <div class="login-wrap">
   <div class="login-hero">
     <div class="login-logo">G·A·I</div>
@@ -61,10 +64,10 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh}
         <input type="password" id="login-pw" placeholder="비밀번호 입력"
           onkeydown="if(event.key==='Enter') doLogin()">
       </div>
-      <button id="login-btn" onclick="doLogin()">시작하기</button>
+      <button class="action-btn" id="login-btn" onclick="doLogin()">시작하기</button>
       <div class="divider">또는</div>
       <button class="google-btn" onclick="doGoogle()">
-        <svg class="google-icon" viewBox="0 0 24 24">
+        <svg width="16" height="16" viewBox="0 0 24 24">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
           <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
           <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -77,24 +80,24 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh}
     <!-- 회원가입 폼 -->
     <div id="form-register" style="display:none">
       <div style="margin-bottom:14px">
-        <div class="sec-title" style="margin-bottom:10px">역할 선택</div>
+        <div style="font-size:10px;font-family:var(--mono);color:var(--text4);letter-spacing:.10em;text-transform:uppercase;margin-bottom:10px">역할 선택</div>
         <div class="role-grid">
-          <button class="role-card-btn selected" data-role="student" onclick="selectRole('student')">
+          <button class="role-card-btn selected" onclick="selectRole('student',this)">
             <span class="icon">🎓</span>
             <span class="rname">학생</span>
             <span class="rdesc">프로젝트 · AI 협업</span>
           </button>
-          <button class="role-card-btn" data-role="professor" onclick="selectRole('professor')">
+          <button class="role-card-btn" onclick="selectRole('professor',this)">
             <span class="icon">👩‍🏫</span>
             <span class="rname">교수 · 교육자</span>
             <span class="rdesc">커리큘럼 · 평가</span>
           </button>
-          <button class="role-card-btn" data-role="industry" onclick="selectRole('industry')">
+          <button class="role-card-btn" onclick="selectRole('industry',this)">
             <span class="icon">🏢</span>
             <span class="rname">산업체 파트너</span>
             <span class="rdesc">멘토링 · 채용</span>
           </button>
-          <button class="role-card-btn" data-role="researcher" onclick="selectRole('researcher')">
+          <button class="role-card-btn" onclick="selectRole('researcher',this)">
             <span class="icon">🔬</span>
             <span class="rname">외부 연구자</span>
             <span class="rdesc">HCI/HCAI 연구</span>
@@ -110,10 +113,11 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh}
         <input type="email" id="reg-email" placeholder="example@kbu.ac.kr">
       </div>
       <div class="form-group">
-        <label>비밀번호</label>
-        <input type="password" id="reg-pw" placeholder="6자 이상">
+        <label>비밀번호 (6자 이상)</label>
+        <input type="password" id="reg-pw" placeholder="6자 이상"
+          onkeydown="if(event.key==='Enter') doRegister()">
       </div>
-      <button id="login-btn" onclick="doRegister()">가입하기</button>
+      <button class="action-btn" id="reg-btn" onclick="doRegister()">가입하기</button>
     </div>
   </div>
 
@@ -121,27 +125,148 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh}
 </div>
 
 <script type="module">
-import { loginWithEmail, loginWithGoogle, register, selectRole as sr, switchTab as st }
-  from './assets/js/auth.js';
-import { auth, onAuthStateChanged } from './assets/js/firebase.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, onAuthStateChanged,
+         signInWithEmailAndPassword,
+         createUserWithEmailAndPassword,
+         GoogleAuthProvider, signInWithPopup }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getFirestore, doc, setDoc, getDoc, serverTimestamp }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
-/* 이미 로그인 상태면 바로 대시보드 */
+/* ── Firebase 설정 ── */
+const firebaseConfig = {
+  apiKey:            "AIzaSyCoNHbZNqiDil3nFDk1Ry2MIoUSPnDZ8A8",
+  authDomain:        "g-a-i2026.firebaseapp.com",
+  projectId:         "g-a-i2026",
+  storageBucket:     "g-a-i2026.appspot.com",
+  messagingSenderId: "903996714406",
+  appId:             "1:903996714406:web:4dce52554343d00bf47367",
+  measurementId:     "G-TZV926FH73"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+const ROLE_DEPT = {
+  student:    'KBU 디자인학과 디자인 전공',
+  professor:  'KBU 디자인학과 교수진',
+  industry:   '산학협력 멘토',
+  researcher: 'HCI / HCAI 연구'
+};
+
+let selectedRole = 'student';
+
+/* 이미 로그인 상태면 대시보드로 */
 onAuthStateChanged(auth, user => {
   if (user) location.href = 'dashboard.html';
 });
 
-window.switchTab   = st;
-window.selectRole  = (role) => { sr(role); };
-window.doLogin     = () => loginWithEmail(
-  document.getElementById('login-email').value,
-  document.getElementById('login-pw').value
-);
-window.doGoogle    = loginWithGoogle;
-window.doRegister  = () => register(
-  document.getElementById('reg-email').value,
-  document.getElementById('reg-pw').value,
-  document.getElementById('reg-name').value
-);
+/* ── 탭 전환 ── */
+window.switchTab = function(tab) {
+  document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+  document.getElementById('tab-register').classList.toggle('active', tab === 'register');
+  document.getElementById('form-login').style.display    = tab === 'login'    ? 'block' : 'none';
+  document.getElementById('form-register').style.display = tab === 'register' ? 'block' : 'none';
+};
+
+/* ── 역할 선택 ── */
+window.selectRole = function(role, btn) {
+  selectedRole = role;
+  document.querySelectorAll('.role-card-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+};
+
+/* ── 이메일 로그인 ── */
+window.doLogin = async function() {
+  const email = document.getElementById('login-email').value.trim();
+  const pw    = document.getElementById('login-pw').value;
+  if (!email || !pw) { showToast('이메일과 비밀번호를 입력해주세요.'); return; }
+  setLoading('login-btn', true);
+  try {
+    await signInWithEmailAndPassword(auth, email, pw);
+    location.href = 'dashboard.html';
+  } catch(e) {
+    showToast('로그인 오류: ' + (e.code === 'auth/invalid-credential' ? '이메일 또는 비밀번호가 올바르지 않습니다.' : e.message));
+    setLoading('login-btn', false);
+  }
+};
+
+/* ── Google 로그인 ── */
+window.doGoogle = async function() {
+  try {
+    const provider = new GoogleAuthProvider();
+    const cred = await signInWithPopup(auth, provider);
+    const snap = await getDoc(doc(db, 'users', cred.user.uid));
+    if (!snap.exists()) {
+      /* 최초 Google 로그인 — 기본 프로필 생성 (학생) */
+      await setDoc(doc(db, 'users', cred.user.uid), {
+        displayName: cred.user.displayName || '사용자',
+        email:       cred.user.email,
+        role:        'student',
+        dept:        ROLE_DEPT.student,
+        score:       0,
+        votedItems:  [],
+        badges:      [],
+        createdAt:   serverTimestamp()
+      });
+    }
+    location.href = 'dashboard.html';
+  } catch(e) {
+    showToast('Google 로그인 오류: ' + e.message);
+  }
+};
+
+/* ── 회원가입 ── */
+window.doRegister = async function() {
+  const name  = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const pw    = document.getElementById('reg-pw').value;
+  if (!name)  { showToast('이름을 입력해주세요.'); return; }
+  if (!email) { showToast('이메일을 입력해주세요.'); return; }
+  if (pw.length < 6) { showToast('비밀번호는 6자 이상이어야 합니다.'); return; }
+  setLoading('reg-btn', true);
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, pw);
+    await setDoc(doc(db, 'users', cred.user.uid), {
+      displayName: name,
+      email,
+      role:        selectedRole,
+      dept:        ROLE_DEPT[selectedRole],
+      score:       0,
+      votedItems:  [],
+      badges:      ['첫 가입 완료'],
+      createdAt:   serverTimestamp()
+    });
+    location.href = 'dashboard.html';
+  } catch(e) {
+    const msg = e.code === 'auth/email-already-in-use' ? '이미 사용 중인 이메일입니다.'
+              : e.code === 'auth/invalid-email'        ? '올바른 이메일 형식이 아닙니다.'
+              : e.message;
+    showToast('회원가입 오류: ' + msg);
+    setLoading('reg-btn', false);
+  }
+};
+
+/* ── 유틸 ── */
+function setLoading(btnId, on) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  btn.disabled  = on;
+  btn.innerHTML = on
+    ? '<span class="loading-spinner"></span>&nbsp;처리 중...'
+    : (btnId === 'login-btn' ? '시작하기' : '가입하기');
+}
+
+function showToast(msg) {
+  let t = document.getElementById('gai-toast');
+  if (!t) return;
+  t.textContent  = msg;
+  t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#1A1A1A;color:#fff;font-size:12px;padding:10px 20px;border-radius:20px;z-index:9999;opacity:1;transition:opacity .25s;font-family:var(--sans);white-space:nowrap';
+  clearTimeout(t._tid);
+  t._tid = setTimeout(() => t.style.opacity = '0', 3000);
+}
 </script>
 </body>
 </html>
